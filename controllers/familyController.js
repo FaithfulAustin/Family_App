@@ -1,7 +1,7 @@
 
 import asyncHandler from "express-async-handler";
 import Family from "../models/Family.js";
-
+import User from "../models/User.js";
 
 
 export const registerFamilyContrl = asyncHandler(async (req, res) => {
@@ -45,6 +45,25 @@ export const registerFamilyContrl = asyncHandler(async (req, res) => {
 
 export const listFamiliesCtrl = asyncHandler(async (req, res) => {
   const family = await Family.find();
+  res.status(200).json({
+    status: "success",
+    family,
+  });
+});
+
+//get a family by familyCode
+export const getFamilyCtrl = asyncHandler(async (req, res) => {
+  const {familyCode} = req.params;
+  const family = await Family.findOne({familyCode});;
+
+  if (!family) {
+    return res.status(404).json({
+      status: "fail",
+      message: "Family not found",
+    }); 
+  }
+
+
   res.status(200).json({
     status: "success",
     family,
