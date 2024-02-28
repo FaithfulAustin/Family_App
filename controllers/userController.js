@@ -74,3 +74,13 @@ const isUserExists = await User.findOne({ email });
     data: user,
   });
 });
+
+//get all Users 
+
+export const listUsersCtrl = asyncHandler(async (req, res) => {
+  const user = await User.find();
+  res.status(200).json({
+    status: "success",
+    user,
+  });
+});
