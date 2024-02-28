@@ -40,3 +40,13 @@ export const registerFamilyContrl = asyncHandler(async (req, res) => {
     data: family,
   });
 });
+
+//get all Families 
+
+export const listFamiliesCtrl = asyncHandler(async (req, res) => {
+  const family = await Family.find();
+  res.status(200).json({
+    status: "success",
+    family,
+  });
+});
